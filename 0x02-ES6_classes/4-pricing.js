@@ -1,37 +1,51 @@
-import Currency from "./3-currency";
+/* eslint-disable no-underscore-dangle */
+import Currency from './3-currency';
 
- export default class Pricing {
-    //constructor
-    constructor(amount, currency) {
-        this.amount = amount;
-        this.currency = currency;
-    }
+export default class Pricing {
+  /**
+   * @param {number} amount - amount of money
+   * @param {string} currency - currency
+   *
+   * Implement getters and setters for each
+   */
+  constructor(amount, currency) {
+    this.amount = amount;
+    this.currency = currency;
+  }
 
-    //Getter for amount
-    get amount() {
-        return this._amount;
-    }
-    //setter for amount
-    set amount(value) {
-        this._amount = value;
-    }
+  get amount() {
+    return this._amount;
+  }
 
-    //Getter for currency
-    get currency() {
-        return this._currency;
+  set amount(value) {
+    if (typeof value !== 'number') {
+      throw new TypeError('amount must be a number');
     }
-    //setter for currency
-    set currency(value) {
-        this._currency = value;
-    }
+    this._amount = value;
+  }
 
-    //Method
-    displayFullPrice() {
-        return `${this.amount} ${this.currency.displayFullCurrency()}`;
-    }
+  get currency() {
+    return this._currency;
+  }
 
-    //static method
-    static convertPrice(amount, conversionRate) {
-        return amount * conversionRate;
+  set currency(value) {
+    if (!(value instanceof Currency)) {
+      throw new TypeError('currency must be a Currency');
     }
- }
+    this._currency = value;
+  }
+
+  displayFullPrice() {
+    return `${this.amount} ${this.currency.name} (${this.currency.code})`;
+  }
+
+  static convertPrice(amount, conversionRate) {
+    if (typeof amount !== 'number') {
+      throw new TypeError('amount must be a number');
+    }
+    if (typeof conversionRate !== 'number') {
+      throw new TypeError('conversionRate must be a number');
+    }
+    return amount * conversionRate;
+  }
+}
