@@ -1,29 +1,39 @@
+/* eslint-disable no-underscore-dangle */
 export default class Currency {
-    //constructor
-    constructor(code, name) {
-        this.code = code;
-        this.name = name;
-    }
+  /**
+   * @param {string} code - currency code
+   * @param {string} name - currency name
+   *
+   * Implement getters and setters for each
+   */
+  constructor(code, name) {
+    this.code = code;
+    this.name = name;
+  }
 
-    //Get for code
-    get code() {
-        return this._code;
-    }
-    //Set code
-    set code(value) {
-        this._code = value;
-    }
+  get code() {
+    return this._code;
+  }
 
-    //Get for name
-    get name() {
-        return this._name;
+  set code(value) {
+    if (typeof value !== 'string') {
+      throw new Error('code must be a string');
     }
-    //Set name
-    set name(value) {
-        this._name = value;
-    }
+    this._code = value;
+  }
 
-    displayFullCurrency() {
-        return `${this._name} (${this._code})`;
+  get name() {
+    return this._name;
+  }
+
+  set name(value) {
+    if (typeof value !== 'string') {
+      throw new Error('name must be a string');
     }
+    this._name = value;
+  }
+
+  displayFullCurrency() {
+    return `${this.name} (${this.code})`;
+  }
 }
